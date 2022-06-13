@@ -1,0 +1,5 @@
+name: nrfhealth
+replicas: 1
+image:
+  repository: twobitjay/nrfhealth
+  tag: latest
