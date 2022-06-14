@@ -42,3 +42,5 @@ kubectl exec --namespace 5gc-nrf-ns $nrfhealthpod -- sh -c "robot nrfhealth.robo
 # ###########################################################################
 
 #az aks get-credentials --resource-group $AZURE_RESOURCE_GROUP --name $AZURE_AKS_CLUSTER_NAME || true
+
+z aks get-credentials --resource-group rg-nrf000-amdocslabs-aks --name aks-nrf000-amdocslabs || true
