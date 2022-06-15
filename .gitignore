@@ -38,3 +38,5 @@ override.tf.json
 .files
 .kube
 .idea
+.DS_Store
+rbac.json

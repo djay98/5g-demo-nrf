@@ -37,3 +37,4 @@ resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
     }
   }
 }
+

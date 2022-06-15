@@ -7,7 +7,7 @@ resource "kubernetes_namespace" "app_ns" {
 resource "helm_release" "app-5g-nrf" {
   namespace  = "${var.app.namespace}-ns"
   name       = "${var.app.name}-app"
-  chart      = "${path.root}/helm/free5gc/charts/free5gc-nrf"
+  chart      = "${path.root}/helm/free5gc"
 
   depends_on = [
       kubernetes_namespace.app_ns,

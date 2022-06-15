@@ -6,6 +6,8 @@ variable "subscription_id" {}
 variable "purpose" {}
 variable "environment" {}
 variable "location" {}
+variable "client_id" {}
+variable "client_secret" {}
 variable "network_cidrs" {
   default = {
     vnet   = "10.0.0.0/8"

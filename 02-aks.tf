@@ -47,19 +47,24 @@ resource "azurerm_kubernetes_cluster" "aks" {
     }
   }
 
-  identity {
-    type = "SystemAssigned"
+  // identity {
+  //  type = "SystemAssigned"
+  // }
+
+  service_principal {
+    client_id     = var.client_id
+    client_secret = var.client_secret
   }
 
   role_based_access_control {
     enabled = true
 
-    azure_active_directory {
-      managed                = true
-      tenant_id              = data.azurerm_subscription.current.tenant_id
-      admin_group_object_ids = [data.azuread_group.aks_admins.object_id]
-      azure_rbac_enabled     = true
-    }
+    //azure_active_directory {
+    //  managed                = true
+    //  tenant_id              = data.azurerm_subscription.current.tenant_id
+    //  admin_group_object_ids = [data.azuread_group.aks_admins.object_id]
+    //  azure_rbac_enabled     = true
+    //}
   }
 
   addon_profile {
@@ -73,14 +78,14 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-resource "azurerm_role_assignment" "aks_identity_monitoring" {
-  scope                = azurerm_kubernetes_cluster.aks.id
-  role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = azurerm_kubernetes_cluster.aks.addon_profile.0.oms_agent.0.oms_agent_identity.0.object_id
-}
+// resource "azurerm_role_assignment" "aks_identity_monitoring" {
+//  scope                = azurerm_kubernetes_cluster.aks.id
+//  role_definition_name = "Monitoring Metrics Publisher"
+//  principal_id         = azurerm_kubernetes_cluster.aks.addon_profile.0.oms_agent.0.oms_agent_identity.0.object_id
+// }
 
-resource "azurerm_role_assignment" "aks_identity_networking" {
-  scope                = azurerm_resource_group.aks.id
-  role_definition_name = "Network Contributor"
-  principal_id         = azurerm_kubernetes_cluster.aks.identity.0.principal_id
-}
+// resource "azurerm_role_assignment" "aks_identity_networking" {
+//  scope                = azurerm_resource_group.aks.id
+//  role_definition_name = "Network Contributor"
+//  principal_id         = azurerm_kubernetes_cluster.aks.identity.0.principal_id
+// }
