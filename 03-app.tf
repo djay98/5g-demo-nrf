@@ -13,4 +13,3 @@ resource "helm_release" "app-5g-nrf" {
       kubernetes_namespace.app_ns,
   ]
 }
-

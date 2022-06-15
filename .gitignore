@@ -40,3 +40,4 @@ override.tf.json
 .idea
 .DS_Store
 rbac.json
+.terraform.lock.hcl
