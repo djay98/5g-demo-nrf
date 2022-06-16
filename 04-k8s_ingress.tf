@@ -2,7 +2,7 @@
 resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
   metadata {
     namespace  = "${var.app.namespace}-ns"
-    name       = "${var.app.name}-ingress"
+    name       = "nrf-ingress"
     annotations = {
       "kubernetes.io/ingress.class" = "nginx"
       "nginx.ingress.kubernetes.io/ssl-redirect" = "false"
@@ -13,7 +13,7 @@ resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
   }
   spec {
     rule {
-      host = "${var.app.name}.${var.dns.child}.${var.dns.domain}"
+      host = "nrf000.${var.dns.prefix}.${var.dns.domain}"
       http {
         path {
           path = "/"
@@ -31,9 +31,48 @@ resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
     }
     tls {
       hosts = [
-        "${var.app.name}.${var.dns.child}.${var.dns.domain}"
+        "nrf000.${var.dns.prefix}.${var.dns.domain}"
       ]
-      secret_name = "${var.app.name}-tls-secret"
+      secret_name = "nrf-tls-secret"
+    }
+  }
+}
+
+resource "kubernetes_ingress_v1" "app-5g-pcf-ingress" {
+  metadata {
+    namespace  = "${var.app.namespace}-ns"
+    name       = "pcf-ingress"
+    annotations = {
+      "kubernetes.io/ingress.class" = "nginx"
+      "nginx.ingress.kubernetes.io/ssl-redirect" = "false"
+      "cert-manager.io/cluster-issuer" = "letsencrypt-prod"
+      "nginx.ingress.kubernetes.io/enable-cors": "true"
+      "nginx.ingress.kubernetes.io/cors-allow-origin" = "https://amdocs-swagger.5g-demo.info"
+    }
+  }
+  spec {
+    rule {
+      host = "pcf000.${var.dns.prefix}.${var.dns.domain}"
+      http {
+        path {
+          path = "/"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = "pcf-npcf"
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+    tls {
+      hosts = [
+        "pcf000.${var.dns.prefix}.${var.dns.domain}"
+      ]
+      secret_name = "pcf-tls-secret"
     }
   }
 }

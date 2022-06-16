@@ -5,7 +5,7 @@
 #}
 
 resource "azurerm_log_analytics_workspace" "aks" {
-  name                = "log-${local.infix}-000"
+  name                = "log-${local.infix}"
   location            = var.location
   resource_group_name = azurerm_resource_group.aks.name
   sku                 = "PerGB2018"

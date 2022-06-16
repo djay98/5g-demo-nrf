@@ -1,14 +1,14 @@
-resource "helm_release" "nrfhealth-app" {
+resource "helm_release" "health-app" {
   namespace  = "${var.app.namespace}-ns"
-  name       = "nrfhealth-app"
-  chart      = "${path.root}/helm/helm-nrf-health"
+  name       = "health-app"
+  chart      = "${path.root}/helm/helm-health"
 }
 
 
-resource "kubernetes_ingress_v1" "nrfhealth-ingress" {
+resource "kubernetes_ingress_v1" "health-ingress" {
   metadata {
     namespace  = "${var.app.namespace}-ns"
-    name       = "nrfhealth-ingress"
+    name       = "health-ingress"
     annotations = {
       "kubernetes.io/ingress.class" = "nginx"
       "nginx.ingress.kubernetes.io/ssl-redirect" = "false"
@@ -17,14 +17,14 @@ resource "kubernetes_ingress_v1" "nrfhealth-ingress" {
   }
   spec {
     rule {
-      host = "nrfhealth.${var.dns.child}.${var.dns.domain}"
+      host = "health.${var.dns.prefix}.${var.dns.domain}"
       http {
         path {
           path = "/"
           path_type = "Prefix"
           backend {
             service {
-              name = "nrfhealth-app-service"
+              name = "health-app-service"
               port {
                 number = 80
               }
@@ -35,9 +35,9 @@ resource "kubernetes_ingress_v1" "nrfhealth-ingress" {
     }
     tls {
       hosts = [
-        "nrfhealth.${var.dns.child}.${var.dns.domain}"
+        "health.${var.dns.prefix}.${var.dns.domain}"
       ]
-      secret_name = "nrfhealth-tls-secret"
+      secret_name = "health-tls-secret"
     }
   }
 }

@@ -2,12 +2,19 @@ locals {
   infix = "${var.purpose}-${var.environment}"
 }
 
-variable "subscription_id" {}
-variable "purpose" {}
-variable "environment" {}
+variable "subscription_id" {
+  type = string
+}
+variable "client_id" {
+  type = string
+}
+variable "client_secret" {
+  type = string
+}
 variable "location" {}
-variable "client_id" {}
-variable "client_secret" {}
+variable "environment" {}
+variable "purpose" {}
+
 variable "network_cidrs" {
   default = {
     vnet   = "10.0.0.0/8"
@@ -19,6 +26,17 @@ variable "network_cidrs" {
   })
 }
 variable "aks" {
+  default = {
+    kubernetes_version    = "1.22.4"
+    availability_zones    = ["1", "2"]
+    log_retention_in_days = 30
+    ad_admin_group        = "5gadmin"
+    node_pool = {
+      node_count = 2
+      vm_size    = "Standard_DS2_v2"
+    }
+  }
+
   type = object({
     // az aks get-versions --location westeurope -o table
     kubernetes_version    = string
@@ -34,13 +52,19 @@ variable "aks" {
 variable "app" {
   type = object({
     namespace   = string
-    name    = string
   })
+  default = {
+    namespace = "5gc-app"
+  }
 }
 
 variable "dns" {
   type = object({
     domain   = string
-    child    = string
+    prefix    = string
   })
+  default = {
+    domain = "5g-demo.info"
+    prefix = "amdocs"
+  }
 }
