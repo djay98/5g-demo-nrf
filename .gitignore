@@ -41,3 +41,4 @@ override.tf.json
 .DS_Store
 rbac.json
 .terraform.lock.hcl
+00-main.sh

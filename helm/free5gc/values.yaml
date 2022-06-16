@@ -84,7 +84,7 @@ deployAUSF: false
 deployN3IWF: false
 deployNRF: true              
 deployNSSF: false                 
-deployPCF: false
+deployPCF: true
 deploySMF: false
 deployUDM: false
 deployUDR: false
