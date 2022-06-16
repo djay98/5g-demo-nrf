@@ -65,6 +65,6 @@ variable "dns" {
   })
   default = {
     domain = "5g-demo.info"
-    prefix = "amdocs"
+    prefix = "amdocs1"
   }
 }
