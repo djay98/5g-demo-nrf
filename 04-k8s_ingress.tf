@@ -13,7 +13,7 @@ resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
   }
   spec {
     rule {
-      host = "nrf000.${var.dns.prefix}.${var.dns.domain}"
+      host = "nrf000.${var.dnsprefix}.${var.dnsdomain}"
       http {
         path {
           path = "/"
@@ -31,7 +31,7 @@ resource "kubernetes_ingress_v1" "app-5g-nrf-ingress" {
     }
     tls {
       hosts = [
-        "nrf000.${var.dns.prefix}.${var.dns.domain}"
+        "nrf000.${var.dnsprefix}.${var.dnsdomain}"
       ]
       secret_name = "nrf-tls-secret"
     }
@@ -52,7 +52,7 @@ resource "kubernetes_ingress_v1" "app-5g-pcf-ingress" {
   }
   spec {
     rule {
-      host = "pcf000.${var.dns.prefix}.${var.dns.domain}"
+      host = "pcf000.${var.dnsprefix}.${var.dnsdomain}"
       http {
         path {
           path = "/"
@@ -70,7 +70,7 @@ resource "kubernetes_ingress_v1" "app-5g-pcf-ingress" {
     }
     tls {
       hosts = [
-        "pcf000.${var.dns.prefix}.${var.dns.domain}"
+        "pcf000.${var.dnsprefix}.${var.dnsdomain}"
       ]
       secret_name = "pcf-tls-secret"
     }

@@ -17,7 +17,7 @@ resource "kubernetes_ingress_v1" "health-ingress" {
   }
   spec {
     rule {
-      host = "health.${var.dns.prefix}.${var.dns.domain}"
+      host = "health.${var.dnsprefix}.${var.dnsdomain}"
       http {
         path {
           path = "/"
@@ -35,7 +35,7 @@ resource "kubernetes_ingress_v1" "health-ingress" {
     }
     tls {
       hosts = [
-        "health.${var.dns.prefix}.${var.dns.domain}"
+        "health.${var.dnsprefix}.${var.dnsdomain}"
       ]
       secret_name = "health-tls-secret"
     }

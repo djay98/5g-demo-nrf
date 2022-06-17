@@ -58,13 +58,11 @@ variable "app" {
   }
 }
 
-variable "dns" {
-  type = object({
-    domain   = string
-    prefix    = string
-  })
-  default = {
-    domain = "5g-demo.info"
-    prefix = "amdocs1"
-  }
+variable "dnsdomain" {
+  type = string
+  default = "5g-demo.info"
+}
+variable "dnsprefix" {
+  type = string
+  default = "amdocs"
 }
